@@ -41,4 +41,12 @@ class GlobalIDTest < ActiveSupport::TestCase
     end
   end
 
+  test 'global id (primary key not set)' do
+    class Ebook
+      include ActiveModel::GlobalIdentification
+    end
+
+    assert_raise(NoMethodError) {Ebook.new.global_id.model_id}
+  end
+
 end

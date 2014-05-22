@@ -24,11 +24,8 @@ module ActiveModel
       def gid_primary_key
         @gid_primary_key ||= if respond_to?(:primary_key)
                                primary_key
-                             elsif instance_methods.include?(:id)
-                               :id
                              else
-                             #   We should probably raise an error here
-
+                               :id
                              end
       end
     end
