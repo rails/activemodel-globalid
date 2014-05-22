@@ -19,9 +19,7 @@ module ActiveModel
 
     module ClassMethods
 
-      def gid_primary_key=(id)
-        @gid_primary_key = id
-      end
+      attr_writer :gid_primary_key
 
       def gid_primary_key
         @gid_primary_key ||= if respond_to?(:primary_key)
