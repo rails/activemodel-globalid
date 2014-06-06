@@ -1,10 +1,18 @@
 require 'active_support/core_ext/string/inflections'
 require 'active_support/core_ext/array/access'
+require 'json'
 
 module ActiveModel
   class GlobalID
     def self.create(model)
-      new "GlobalID-#{model.class.name}-#{model.id}"
+      id = {
+        type: 'GlobalID',
+        version: 1,
+        class_name: model.class.name,
+        id: model.id.to_s,
+      }.to_json
+
+      new id
     end
 
     def initialize(gid)
@@ -12,11 +20,11 @@ module ActiveModel
     end
 
     def model_class
-      @model_klass ||= @gid.split("-").second.constantize
+      @model_klass ||= JSON.parse(@gid, symbolize_names: true)[:class_name].constantize
     end
 
     def model_id
-      @model_id ||= @gid.split('-')[2..-1].join('-')
+      @model_id ||= JSON.parse(@gid, symbolize_names: true)[:id]
     end
 
     def ==(other_global_id)
@@ -28,3 +36,4 @@ module ActiveModel
     end
   end
 end
+

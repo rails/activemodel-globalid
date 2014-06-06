@@ -1,5 +1,6 @@
 require 'active_model/global_id'
 require 'active_model/signed_global_id'
+require 'json'
 
 module ActiveModel
   class GlobalLocator
@@ -24,7 +25,12 @@ module ActiveModel
       
       private
         def properly_formatted_gid?(gid)
-          gid =~ /GlobalID-([^-]+)-(.+)/
+          begin
+            JSON.parse(gid)
+            return true
+          rescue => e
+            return false
+          end
         end
     end
   end
