@@ -22,7 +22,7 @@ be able to use the following methods:
 
 ```ruby
 person_gid = Person.find(5).global_id         # => <#ActiveModel::GlobalID ...
-person_gid.to_s 					          # => "Person-5"
+person_gid.to_json  			      # => {"type":"GlobalID","version":1,"class_name":"Person","id":"5"}
 ActiveModel::GlobalLocator.locate(person_gid) # => <#Person id:5 ...
 ```
 

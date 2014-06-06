@@ -1,13 +1,20 @@
 require 'active_model/global_id'
 require 'active_support/core_ext/module/attribute_accessors'
-
+require 'json'
 
 module ActiveModel
   class SignedGlobalID < GlobalID
     cattr_accessor :verifier
 
     def self.create(model)
-      new verifier.generate("GlobalID-#{model.class.name}-#{model.id}")
+      id = {
+        type: 'GlobalID',
+        version: 1,
+        class_name: model.class.name,
+        id: model.id.to_s,
+      }.to_json
+
+      new verifier.generate(id)
     end
 
     def initialize(sgid)

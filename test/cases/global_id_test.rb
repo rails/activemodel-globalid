@@ -12,15 +12,27 @@ class GlobalIDTest < ActiveSupport::TestCase
   end
 
   test 'string representation' do
-    assert_equal 'GlobalID-Person-5', @person_gid.to_s
+    parsed = JSON.parse(@person_gid.to_s, symbolize_names: true)
+    assert_equal 'GlobalID', parsed[:type]
+    assert_equal 1, parsed[:version]
+    assert_equal 'Person', parsed[:class_name]
+    assert_equal '5', parsed[:id]
   end
 
   test 'string representation (uuid)' do
-    assert_equal "GlobalID-Person-#{@uuid}", @person_uuid_gid.to_s
+    parsed = JSON.parse(@person_uuid_gid.to_s, symbolize_names: true)
+    assert_equal 'GlobalID', parsed[:type]
+    assert_equal 1, parsed[:version]
+    assert_equal 'Person', parsed[:class_name]
+    assert_equal @uuid, parsed[:id]
   end
 
   test 'string representation (namespaced)' do
-    assert_equal 'GlobalID-Person::Child-4', @person_namespaced_gid.to_s
+    parsed = JSON.parse(@person_namespaced_gid.to_s, symbolize_names: true)
+    assert_equal 'GlobalID', parsed[:type]
+    assert_equal 1, parsed[:version]
+    assert_equal 'Person::Child', parsed[:class_name]
+    assert_equal '4', parsed[:id]
   end
 
   test 'model id' do
@@ -59,3 +71,4 @@ class GlobalIDTest < ActiveSupport::TestCase
     assert_equal ActiveModel::GlobalID.create(Person::Child.new(4)), ActiveModel::GlobalID.create(Person::Child.new(4))
   end
 end
+

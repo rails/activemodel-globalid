@@ -8,8 +8,8 @@ class GlobalLocatorTest < ActiveSupport::TestCase
     @person_gid = ActiveModel::GlobalID.create(Person.new(5))
   end
 
-  test 'locate via actual GID' do
-    ActiveModel::GlobalLocator.locate(@person_gid).tap do |person|
+   test 'locate via actual GID' do
+     ActiveModel::GlobalLocator.locate(@person_gid).tap do |person|
       assert person.is_a?(Person)
       assert_equal "5", person.id
     end
