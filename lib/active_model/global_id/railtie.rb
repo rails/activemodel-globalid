@@ -1,8 +1,7 @@
-require 'rails/railtie'
 require 'active_model/global_identification'
 
 module ActiveModel
-  module GlobalIdentification
+  class GlobalID
     # = Active Model GlobalID Railtie
     class Railtie < Rails::Railtie # :nodoc:
       initializer "active_model.globalid" do
