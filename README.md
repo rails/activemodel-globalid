@@ -1,4 +1,8 @@
-# Active Model: GlobalID -- find models by string references
+# MOVED
+
+To GlobalID: https://github.com/rails/globalid
+
+## Active Model: GlobalID -- find models by string references
 
 GlobalID is a way of serializing a model into a string, which can then be used to look it up later,
 without the caller having to know the class. This is helpful in many cases where you accept different
