@@ -8,7 +8,8 @@ module ActiveModel
 
   class GlobalID
     def self.create(model)
-      new "GlobalID-#{model.class.name}-#{model.id}"
+      primary_key = model.class.gid_primary_key
+      new "GlobalID-#{model.class.name}-#{model.send(primary_key)}"
     end
 
     def initialize(gid)
