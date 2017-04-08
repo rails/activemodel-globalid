@@ -30,5 +30,9 @@ module ActiveModel
     def to_s
       @gid
     end
+
+    def as_json(*args)
+      to_s
+    end
   end
 end
